@@ -38,12 +38,13 @@ A modular, production-ready REST API for **DigiNote** built with **Django REST F
 2. Start development container with hot-reloading:
    ```bash
    docker compose up --build
-   # API runs on http://localhost:8000/api
+   # API runs on http://localhost:8001/api (Mapped 8001:8000 to prevent host port conflicts)
    ```
 
 3. To run in production mode with Gunicorn:
    ```bash
    docker compose -f docker-compose.prod.yml up --build -d
+   # API runs on http://localhost:8001/api
    ```
 
 ---
@@ -63,7 +64,8 @@ A modular, production-ready REST API for **DigiNote** built with **Django REST F
 
 3. Run development server:
    ```bash
-   python manage.py runserver 8000
+   python manage.py runserver 8001
+   # API runs on http://localhost:8001/api
    ```
 
 ---
