@@ -17,6 +17,7 @@ ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS', '*').split(
 
 # Application definition
 INSTALLED_APPS = [
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
     
@@ -31,6 +32,13 @@ INSTALLED_APPS = [
     'apps.posts',
     'apps.aggregations',
 ]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

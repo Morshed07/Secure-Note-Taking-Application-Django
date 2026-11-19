@@ -15,7 +15,12 @@ class MongoDB:
             uri = getattr(settings, 'MONGODB_URI', 'mongodb://localhost:27017/diginote')
             db_name = getattr(settings, 'MONGODB_DB_NAME', 'diginote')
             cls._client = MongoClient(uri)
-            cls._db = cls._client.get_default_database() or cls._client[db_name]
+            try:
+                cls._db = cls._client.get_default_database()
+            except Exception:
+                cls._db = None
+            if cls._db is None:
+                cls._db = cls._client[db_name]
             logger.info(f"Connected to MongoDB database: {cls._db.name}")
             cls._ensure_indexes()
         return cls._db
