@@ -8,6 +8,7 @@ from utils.db import get_users_col
 from utils.jwt_auth import generate_jwt_tokens
 from utils.permissions import IsAuthenticatedMongoUser, IsAdminRole
 from utils.pagination import paginate_mongo, serialize_mongo_doc
+from utils.throttling import AuthRateThrottle
 from .serializers import RegisterSerializer, LoginSerializer, UserUpdateSerializer
 
 class RegisterAPIView(APIView):
@@ -16,6 +17,7 @@ class RegisterAPIView(APIView):
     Public registration endpoint. Hashes password using bcrypt.
     """
     permission_classes = []
+    throttle_classes = [AuthRateThrottle]
 
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
@@ -65,6 +67,7 @@ class LoginAPIView(APIView):
     Public login endpoint. Authenticates against MongoDB and returns JWT token.
     """
     permission_classes = []
+    throttle_classes = [AuthRateThrottle]
 
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
